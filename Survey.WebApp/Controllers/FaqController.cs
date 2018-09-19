@@ -15,7 +15,7 @@ namespace Survey.WebApp.Controllers
         }
 
         // GET: Faq
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             return View();
         }
