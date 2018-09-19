@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WebApplication</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link href="~/AdminLTE/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/bootstrap/css/animate.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/admin-lte.min.css" rel="stylesheet" />
+    <link href="~/Content/admin.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/skins/_all-skins.min.css" rel="stylesheet" />
+    @RenderSection("css", false)
+
+</head>
+<body class="hold-transition skin-blue">
+    <div>
+        <section>
+            @RenderSection("header",
+                           false)
+            @RenderBody()
+        </section>
+    </div>
+    <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+    <script src="~/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/AdminLTE/bootstrap/js/bootstrap-notify.min.js"></script>
+    <script src="~/AdminLTE/plugins/slimscroll/js/jquery.slimscroll.min.js"></script>
+    <script src="~/AdminLTE/plugins/fastclick/js/fastclick.min.js"></script>
+    <script src="~/AdminLTE/dist/js/app.min.js"></script>
+    <script src="~/Scripts/Admin/admin.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

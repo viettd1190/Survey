@@ -1,0 +1,80 @@
+﻿@model Survey.WebApp.Models.FaqModel
+
+@{
+    ViewBag.Title = "Thêm câu hỏi";
+    Layout = "~/Areas/Admin/Views/Shared/_DialogLayout.cshtml";
+}
+
+@section css{
+    <style>
+        .ck-editor__editable {
+            min-height: 250px;
+        }
+    </style>
+}
+
+<form role="form" enctype="multipart/form-data" method="POST" onsubmit="return checkSubmit();">
+    @Html.ValidationSummary()
+    <div class="box-body">
+        <div class="form-group">
+            <label for="Name">Câu hỏi(*):</label>
+            @Html.TextBoxFor(c => c.Title,
+                             new {
+                                         @class = "form-control",
+                                         placeholder = "Câu hỏi"
+                                 })
+            @Html.ValidationMessageFor(m => m.Title)
+        </div>
+        <div class="form-group">
+            <label for="Content">Trả lời(*):</label>
+            @Html.TextAreaFor(c => c.Content,
+                              new {
+                                          @class = "form-control",
+                                          placeholder = "Trả lời"
+                                  })
+            @Html.ValidationMessageFor(m => m.Content)
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="IsDisplay" name="IsDisplay" @(Model.IsDisplay ? "checked" : "")> Hiển thị
+            </label>
+        </div>
+    </div>
+    <div class="box-footer">
+        <button type="submit" class="btn btn-primary btn-flat">Thêm mới</button>
+    </div>
+</form>
+
+@section scripts {
+    @{
+        if (ViewBag.Completed != null)
+        {
+            if (ViewBag.Completed == true)
+            {
+                <script>
+                    $(document).ready(function () {
+                        window.parent.closeAdd();
+                    })
+                </script>
+            }
+        }
+    }
+
+    <script src="~/AdminLTE/plugins/ckeditor/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            ClassicEditor.create(document.querySelector('#Content'));
+        });
+        function checkSubmit() {
+            var homeFlag = $('#IsDisplay').is(':checked');
+            if (homeFlag == true) {
+                $('#IsDisplay').val(true);
+            }
+            else {
+                $('#IsDisplay').val(false);
+            }
+            return true;
+        }
+    </script>
+}

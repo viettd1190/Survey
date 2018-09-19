@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Danh sách người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Menu {
+    <script src="~/Scripts/Admin/User/user-menu.min.js"></script>
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Danh sách người dùng</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <div class="box-header with-border">
+        <a class="btn btn-primary btn-flat pull-right" href="@Url.Action("Add")">Thêm mới</a>
+    </div>
+    <div class="box-body">
+        <table id="table"
+               data-page-number="1"
+               data-page-size="10"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-method="post"
+               data-url="@Url.Action("GetList")"
+               data-page-list="[10, 20, 50, 100]"
+               data-query-params="queryParams"
+               data-classes="table table-hover">
+            <thead>
+            <tr class="active">
+                <th data-valign="middle" data-field="Name" data-formatter="formatValueNull">Tên người dùng</th>
+                <th data-valign="middle" data-field="Username" data-formatter="formatValueNull">Tên đăng nhập</th>
+                <th data-valign="middle" data-field="Role" data-formatter="formatRole">Phân quyền</th>
+                <th data-valign="middle" data-field="Status" data-formatter="formatStatus" data-width="120">Trạng thái</th>
+                <th data-valign="middle" data-field="Id" data-formatter="operateFormatter" data-width="100px"></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').bootstrapTable();
+        });
+        function queryParams(params) {
+            if ($('#table').bootstrapTable('getOptions').pageNumber) {
+                params.offset = $('#table').bootstrapTable('getOptions').pageNumber;
+            }
+            if ($('#table').bootstrapTable('getOptions').pageSize) {
+                params.limit = $('#table').bootstrapTable('getOptions').pageSize;
+            }
+            return params;
+        }
+        function search() {$('#table').bootstrapTable('refresh');}
+        function operateFormatter(id) {
+            return [
+                    '<a class="edit btn btn-sm btn-flat btn-success" title ="Cập nhật" href="@Url.Action("Edit")/'+id+'" style="margin:0 5px 0 0">',
+                    '<span class="fa fa-pencil-square-o"></span>',
+                    '</a>',
+                    '<button class="remove btn-sm btn-flat btn btn-danger" title ="Xóa" onclick="Delete('+id+')">',
+                    '<span class="fa fa-trash-o"></span>',
+                    '</button>'
+                ].join('');
+        }
+        function Delete(id) {
+            if(confirm("Bạn có chắc muốn xóa?")) {
+                $.post('@Url.Action("Delete")',{id:id},function(data) {
+                    showNotification(data);
+                    search();
+                });
+            }
+        }
+        function formatRole(role) {
+            if (role == 1) {
+                return 'Admin';
+            }
+            else if(role==2) {
+                return 'Nhân viên';
+            }
+            return '';
+        }
+        function formatStatus(status) {
+            if(status==1) {
+                return '<span class="label label-infor">Đang chờ duyệt</span>';
+            } else if (status == 2) {
+                return '<span class="label label-warning">Bị từ chối</span>';
+            } else if (status == 4) {
+                return '<span class="label label-danger">Đang tạm khóa</span>';
+            }
+            return '';
+        }
+    </script>
+}

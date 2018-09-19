@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Survey.WebApp.Models
 {
@@ -11,6 +12,8 @@ namespace Survey.WebApp.Models
 
         [Required(ErrorMessage = "Nội dung trả lời không được để trống")]
         public string Content { get; set; }
+
+        public DateTime CreatedDate { get; set; }
 
         public bool IsDisplay { get; set; }
     }

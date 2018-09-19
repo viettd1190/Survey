@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Câu hỏi thường gặp";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Menu {
+    <script src="~/Scripts/Admin/Faq/faq-menu.min.js"></script>
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Danh sách câu hỏi thường gặp</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <div class="box-header with-border">
+        <a class="btn btn-primary btn-flat pull-right" href="javascript:add();">Thêm mới</a>
+    </div>
+    <div class="box-body">
+        <table id="table"
+               data-page-number="1"
+               data-page-size="10"
+               data-pagination="true"
+               data-side-pagination="server"
+               data-method="post"
+               data-url="@Url.Action("GetList")"
+               data-page-list="[10, 20, 50, 100]"
+               data-query-params="queryParams"
+               data-classes="table table-hover">
+            <thead>
+            <tr class="active">
+                <th data-valign="middle" data-field="Title" data-formatter="formatValueNull">Tiêu đề</th>
+                <th data-valign="middle" data-field="IsDisplay" data-formatter="formatStatus" data-width="120">Trạng thái</th>
+                <th data-valign="middle" data-field="Id" data-formatter="operateFormatter" data-width="100px"></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="addProductType" tabindex="-1" role="dialog" aria-labelledby="addProductTypeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="addProductTypeLabel">Thêm câu hỏi thường gặp</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editProductType" tabindex="-1" role="dialog" aria-labelledby="editProductTypeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="editProductTypeLabel">Cập nhật câu hỏi</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#table').bootstrapTable();
+        });
+        function queryParams(params) {
+            if ($('#table').bootstrapTable('getOptions').pageNumber) {
+                params.offset = $('#table').bootstrapTable('getOptions').pageNumber;
+            }
+            if ($('#table').bootstrapTable('getOptions').pageSize) {
+                params.limit = $('#table').bootstrapTable('getOptions').pageSize;
+            }
+            return params;
+        }
+        function search() {$('#table').bootstrapTable('refresh');}
+        function operateFormatter(id) {
+            return [
+                    '<a class="edit btn btn-sm btn-flat btn-success" title ="Cập nhật" href="javascript:edit('+
+                    id+
+                    ')" style="margin:0 5px 0 0">',
+                    '<span class="fa fa-pencil-square-o"></span>',
+                    '</a>',
+                    '<button class="remove btn-sm btn-flat btn btn-danger" title ="Xóa" onclick="Delete('+id+')">',
+                    '<span class="fa fa-trash-o"></span>',
+                    '</button>'
+                ].join('');
+        }
+        function Delete(id) {
+            if(confirm("Bạn có chắc muốn xóa?")) {
+                $.post('@Url.Action("Delete")',{id:id},function(data) {
+                    showNotification(data);
+                    search();
+                });
+            }
+        }
+        function formatStatus(status) {
+            if(status==false) {
+                return '<span class="label label-danger">Không hiển thị</span>';
+            }
+            return '';
+        }
+        function add() {
+            $('#addProductType').modal('show');
+            $('#addProductType .modal-body').html('');
+            $('#addProductType .modal-body').html('<iframe src="@Url.Action("Add")" style="zoom: 0.60" width="99.6%" height=900" frameborder="0"></iframe>');
+        }
+        function closeAdd() {
+            $('#addProductType').modal('hide');
+            showNotification({ lv: 1, msg: '[\"Cập nhật thành công\"]' });
+            search();
+        }
+        function edit(id) {
+            $('#editProductType').modal('show');
+            $('#editProductType .modal-body').html('');
+            $('#editProductType .modal-body').html('<iframe src="@Url.Action("Edit")/'+
+                id+
+                '" style="zoom: 0.60" width="99.6%" height=900" frameborder="0"></iframe>');
+        }
+        function closeEdit() {
+            $('#editProductType').modal('hide');
+            showNotification({lv:1,msg:'[\"Cập nhật thành công\"]'});
+            search();
+        }
+    </script>
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "outputFileName": "Content/admin.min.css",
+    "inputFiles": [
+      "Content/admin.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/admin.min.js",
+    "inputFiles": [
+      "Scripts/admin.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Admin/Faq/faq-menu.min.js",
+    "inputFiles": [
+      "Scripts/Admin/Faq/faq-menu.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Admin/admin.min.js",
+    "inputFiles": [
+      "Scripts/Admin/admin.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/Admin/User/user-menu.min.js",
+    "inputFiles": [
+      "Scripts/Admin/User/user-menu.js"
+    ]
+  }
+]

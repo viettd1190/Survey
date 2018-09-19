@@ -10,96 +10,63 @@ namespace Survey.WebApp.Helpers.Html
                                            int page,
                                            int lastPage,
                                            string action,
-                                           string controller)
+                                           string controllerName)
         {
-            var pagingTag = new TagBuilder("paging");
+            TagBuilder pagingTag = new TagBuilder("paging");
 
             StringBuilder builder = new StringBuilder();
-            builder.AppendFormat("<ul class=class=\"pagination pagination-primary\">");
-            bool firstFlag = page <= 4;
-            bool lastFlag = lastPage-page>=4;
+            builder.AppendFormat("<ul class=\"pagination pagination-primary\">");
+
             for (int i = 1; i <= lastPage; i++)
             {
-                var className = "page-item";
-                if (page == i)
+                string className = "page-item";
+                if(page == i)
                 {
                     className = "active page-item";
                 }
 
-                if(i==1)
+                if(i == 1)
                 {
-                    builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controller, new { @class = "page-link" })}</li>");
+                    builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controllerName, new { page = i }, new { @class = "page-link" })}</li>");
                 }
-                else
+                else if(i < page)
                 {
-                    if(i<page)
+                    if(i + 3 == page)
                     {
-                        if (firstFlag)
-                        {
-                            builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controller, new { @class = "page-link" })}</li>");
-                        }
-                        else
-                        {
-                            if(i+3==page)
-                            {
-                                firstFlag = true;
-                                builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink("...", string.Empty, string.Empty, new { @class = "page-link" })}</li>");
-                            }
-                        }
+                        builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink("...", string.Empty, string.Empty, new { page = i }, new { @class = "page-link" })}</li>");
                     }
-                    else if(i==page)
+                    else if(i + 3 > page)
                     {
-                        builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controller, new { @class = "page-link" })}</li>");
-                    }
-                    else
-                    {
-                        if(i==lastPage)
-                        {
-                            builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controller, new { @class = "page-link" })}</li>");
-                        }
-                        else
-                        {
-                            if(!lastFlag)
-                            {
-                                builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controller, new { @class = "page-link" })}</li>");
-                            }
-                        }
+                        builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controllerName, new { page = i }, new { @class = "page-link" })}</li>");
                     }
                 }
-                
-
-                if (firstFlag)
+                else if(i == page)
                 {
-                    builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controller, new { @class = "page-link" })}</li>");
+                    builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controllerName, new { page = i }, new { @class = "page-link" })}</li>");
                 }
-                else
+                else if(i > page)
                 {
-
+                    if(i - 3 < page)
+                    {
+                        builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink(i.ToString(), action, controllerName, new { page = i }, new { @class = "page-link" })}</li>");
+                    }
+                    else if(i - 3 == page)
+                    {
+                        builder.AppendFormat($"<li class=\"{className}\">{helper.ActionLink("...", string.Empty, string.Empty, new { page = i }, new { @class = "page-link" })}</li>");
+                    }
                 }
-                
             }
+
+            if(page + 2 < lastPage)
+            {
+                builder.AppendFormat($"<li class=\"page-item\">{helper.ActionLink(lastPage.ToString(), action, controllerName, new { page = lastPage }, new { @class = "page-link" })}</li>");
+            }
+
             builder.AppendFormat("</ul>");
 
-            pagingTag.InnerHtml = "<ul class=\"pagination pagination-primary\"><li class=\"page-item\"><a href=\"\" class=\"page-link\">1</a></li><li class=\"page-item\"><a href=\"\" class=\"page-link\">...</a></li><li class=\"page-item\"><a href=\"\" class=\"page-link\">5</a></li><li class=\"page-item\"><a href=\"\" class=\"page-link\">6</a></li><li class=\"active page-item\"><a href=\"\" class=\"page-link\">7</a></li><li class=\"page-item\"><a href=\"\" class=\"page-link\">8</a></li><li class=\"page-item\"><a href=\"\" class=\"page-link\">9</a></li><li class=\"page-item\"><a href=\"\" class=\"page-link\">...</a></li><li class=\"page-item\"><a href=\"\" class=\"page-link\">12</a></li></ul>";
+            pagingTag.InnerHtml = builder.ToString();
 
             return MvcHtmlString.Create(pagingTag.ToString(TagRenderMode.Normal));
         }
-
-        //public static MvcHtmlString Button(this HtmlHelper helper, string id, string name)
-        //{
-        //    return helper.Button(id, name, null);
-        //}
-
-        //public static MvcHtmlString Button(this HtmlHelper helper, string id,
-        //                                   string name, IDictionary<string, object> attributes)
-        //{
-        //    var buttonTag = new TagBuilder("button");
-        //    buttonTag.Attributes.Add("type", "button");
-        //    buttonTag.Attributes.Add("id", id);
-        //    buttonTag.Attributes.Add("name", name);
-        //    buttonTag.MergeAttributes(attributes);
-
-        //    return MvcHtmlString.Create(buttonTag.ToString(TagRenderMode.Normal));
-        //}
     }
 }

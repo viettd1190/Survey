@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
+using Survey.Model.Models;
 using Survey.Service;
 using Survey.WebApp.Models;
 
@@ -7,7 +10,7 @@ namespace Survey.WebApp.Controllers
 {
     public class FaqController : BaseController
     {
-        private IFaqService _faqService;
+        private readonly IFaqService _faqService;
 
         public FaqController(IFaqService faqService)
         {
@@ -15,34 +18,28 @@ namespace Survey.WebApp.Controllers
         }
 
         // GET: Faq
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page,
+                                  int pageSize = 10)
         {
-            return View();
-        }
-
-        public ActionResult List()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult GetList(string q,
-                                    int pageNumber,
-                                    int pageSize)
-        {
-            List<FaqModel> list = new List<FaqModel>();
-            for (int i = 0; i < 10; i++)
+            if(page == null)
             {
-                list.Add(new FaqModel
-                         {
-                                 Id = i + 1,
-                                 Title = "HƯỚNG DẪN ĐẶT HÀNG",
-                                 Content = "Đế Sạc Không Dây Tronsmart WC01 Chuẩn Qi 10W Type-C (Không Kèm Adapter) tương thích với công nghệ sạc không dây Qi: Hỗ trợ hầu hết các điện thoại thông minh."
-                         });
+                page = 1;
             }
 
-            return Json(list,
-                        "json");
+            int total;
+            IEnumerable<FaqModel> query = Mapper.Map<IEnumerable<Faq>, IEnumerable<FaqModel>>(_faqService.GetMultiPaging(c => c.IsDisplay,
+                                                                                                                         c => c.OrderByDescending(v => v.CreatedDate),
+                                                                                                                         out total,
+                                                                                                                         page ?? 1,
+                                                                                                                         pageSize));
+
+            ViewBag.Page = page;
+            ViewBag.Total = total;
+            ViewBag.TotalPage = total % pageSize == 0
+                                    ? total / pageSize
+                                    : total / pageSize + 1;
+            ViewBag.List = query.ToList();
+            return View();
         }
     }
 }

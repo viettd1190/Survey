@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/png" href="~/favicon.ico" />
+    <title>@ViewBag.Title - Quản lý website khảo sát</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link href="~/AdminLTE/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/jquery-ui-1.11.0.custom/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/bootstrap/css/animate.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/plugins/bootstrap-dialog/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/admin-lte.min.css" rel="stylesheet" />
+    <link href="~/Content/admin.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/dist/css/skins/_all-skins.min.css" rel="stylesheet" />
+    <script src="~/AdminLTE/plugins/jquery/js/jQuery-2.1.4.min.js"></script>
+
+    @RenderSection("css", false)
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="wrapper">
+        @Html.Partial("_TopMenuLayout")
+        @Html.Partial("_LeftSideBarView")
+        <div class="content-wrapper">
+            @{
+                if (ViewBag.Title != null)
+                {
+                    <section class="content-header">
+                        <h1 class="hidden-xs hidden-sm">
+                            @ViewBag.Title
+                        </h1>
+                        <ol class="breadcrumb">
+                            @{
+                                if (ViewBag.SubTitle != null)
+                                {
+                                    <li><a href="@ViewBag.SubTitleLink"><i class="fa fa-dashboard"></i>@ViewBag.SubTitle</a></li>
+                                }
+                            }
+                            <li class="active">@ViewBag.Title</li>
+                        </ol>
+                    </section>
+                }
+            }
+            <section class="content">
+                @RenderSection("header",
+                                         false)
+                @Html.Partial("_NotificationUserControl")
+                @RenderBody()
+            </section>
+        </div>
+    </div>
+    <script>
+    </script>
+    @RenderSection("menu", required: false)
+    <script src="~/AdminLTE/plugins/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.ui.timepicker.js"></script>
+    <script src="~/AdminLTE/plugins/datetimepicker/jquery.datetimepicker.min.js"></script>
+    <script src="~/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/AdminLTE/bootstrap/js/bootstrap-notify.min.js"></script>
+    <script src="~/AdminLTE/plugins/slimscroll/js/jquery.slimscroll.min.js"></script>
+    <script src="~/AdminLTE/plugins/fastclick/js/fastclick.min.js"></script>
+    <script src="~/AdminLTE/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="~/AdminLTE/plugins/bootstrap-table/locale/bootstrap-table-vi-VN.min.js"></script>
+    <script src="~/AdminLTE/plugins/bootstrap-table/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+    <script src="~/AdminLTE/plugins/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.min2.js"></script>
+    <script src="~/AdminLTE/plugins/bootstrap-dialog/bootstrap-dialog.min.js"></script>
+    <script src="~/AdminLTE/dist/js/app.min.js"></script>
+    <script src="~/Scripts/Admin/admin.min.js"></script>
+
+    <script>
+        @*window.urlNewFeedbacks='@Url.Action("GetCounterNewFeedback","Feedback")';
+        window.urlNewOrders='@Url.Action("GetCounterNewOrders","Order")';
+        window.urlOrder = '@AppUtil.RootHome/Order/Detail/';
+        window.urlFeedback='@Url.Action("Index","Feedback")';*@
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
