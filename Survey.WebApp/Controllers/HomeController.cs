@@ -9,17 +9,8 @@ namespace Survey.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserService _userService;
-
-        public HomeController(IUserService userService)
-        {
-            _userService = userService;
-        }
-
         public ActionResult Index()
         {
-            ViewBag.Counter = _userService.GetAll()
-                                          .Count();
             return View();
         }
 
