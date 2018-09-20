@@ -1,0 +1,65 @@
+﻿@model Survey.WebApp.Models.SurveyModel
+
+@{
+    ViewBag.Title = "Thêm bài trắc nghiệm";
+    ViewBag.SubTitle = "Danh sách bài trắc nghiệm";
+    ViewBag.SubTitleLink = Url.Action("Index");
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Menu {
+    <script src="~/Scripts/Admin/Survey/add-survey-menu.min.js"></script>
+}
+
+    <div class="box box-primary">
+        <div class="box-header with-border"></div>
+        <form role="form" enctype="multipart/form-data" method="POST" onsubmit="return checkSubmit();">
+            @Html.ValidationSummary()
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="Name">Tiêu đề(*):</label>
+                    @Html.TextBoxFor(c => c.Title,
+                                     new
+                                     {
+                                             @class = "form-control",
+                                             placeholder = "Tiêu đề bài trắc nghiệm"
+                                     })
+                    @Html.ValidationMessageFor(m => m.Title)
+                </div>
+                <div class="form-group">
+                    <label for="FromDate">Từ ngày(*):</label>
+                    @Html.TextBoxFor(c => c.FromDate,
+                                     new
+                                     {
+                                             @class = "form-control date-picker",
+                                             placeholder = "Ngày bắt đầu trắc nghiệm"
+                                     })
+                    @Html.ValidationMessageFor(m => m.FromDate)
+                </div>
+                <div class="form-group">
+                    <label for="ToDate">Đến ngày:</label>
+                    @Html.TextBoxFor(c => c.ToDate,
+                                     new
+                                     {
+                                             @class = "form-control date-picker",
+                                             placeholder = "Ngày kết thúc trắc nghiệm"
+                                     })
+                    @Html.ValidationMessageFor(m => m.ToDate)
+                </div>
+                <div class="form-group">
+                    <label for="QuestionCounter">Số câu hỏi(*):</label>
+                    @Html.TextBoxFor(c => c.QuestionCounter,
+                                     new
+                                     {
+                                             @class = "form-control",
+                                             placeholder = "Số câu hỏi trắc nghiệm"
+                                     })
+                    @Html.ValidationMessageFor(m => m.QuestionCounter)
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary btn-flat">Thêm mới</button>
+                <a class="btn btn-default btn-flat" href="@Url.Action("Index")">Hủy bỏ</a>
+            </div>
+        </form>
+    </div>

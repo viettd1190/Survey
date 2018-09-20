@@ -28,5 +28,11 @@
     "inputFiles": [
       "Scripts/Admin/User/user-menu.js"
     ]
+  },
+  {
+    "outputFileName": "Scripts/Admin/Survey/add-survey-menu.min.js",
+    "inputFiles": [
+      "Scripts/Admin/Survey/add-survey-menu.js"
+    ]
   }
 ]

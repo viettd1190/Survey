@@ -160,6 +160,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\FaqController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SurveyController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\FaqModel.cs" />
     <Compile Include="Models\FormatResult.cs" />
+    <Compile Include="Models\SurveyModel.cs" />
     <Compile Include="Models\UpdateUserModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1671,6 +1673,7 @@
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Add.cshtml" />
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Survey\Add.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Admin\admin.js" />
@@ -1680,6 +1683,10 @@
     <Content Include="Scripts\Admin\Faq\faq-menu.js" />
     <Content Include="Scripts\Admin\Faq\faq-menu.min.js">
       <DependentUpon>faq-menu.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Admin\Survey\add-survey-menu.js" />
+    <Content Include="Scripts\Admin\Survey\add-survey-menu.min.js">
+      <DependentUpon>add-survey-menu.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Admin\User\user-menu.js" />
     <Content Include="Scripts\Admin\User\user-menu.min.js">
