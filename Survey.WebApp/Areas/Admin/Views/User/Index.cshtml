@@ -14,8 +14,10 @@
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
         </div>
     </div>
-    <div class="box-header with-border">
-        <a class="btn btn-primary btn-flat pull-right" href="@Url.Action("Add")">Thêm mới</a>
+    <div class="box-header with-border" style="display:flex;">
+        <input class="form-control" id="txtSearchBox" style="max-width:300px;" placeholder="Tìm kiếm người dùng"/>
+        <a class="btn btn-flat btn-default pull-right" href="javascript:search();" style="margin-left:5px;">Tìm kiếm</a>
+        <a class="btn btn-primary btn-flat pull-right" href="@Url.Action("Add")" style="margin-left:5px;">Thêm mới</a>
     </div>
     <div class="box-body">
         <table id="table"
@@ -44,6 +46,14 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+            $('#txtSearchBox').keydown(function (key) {
+                if (key) {
+                    if (key.keyCode == 13) {
+                        search();
+                    }
+                }
+            });
+
             $('#table').bootstrapTable();
         });
         function queryParams(params) {
@@ -53,6 +63,7 @@
             if ($('#table').bootstrapTable('getOptions').pageSize) {
                 params.limit = $('#table').bootstrapTable('getOptions').pageSize;
             }
+            params.q=$('#txtSearchBox').val();
             return params;
         }
         function search() {$('#table').bootstrapTable('refresh');}

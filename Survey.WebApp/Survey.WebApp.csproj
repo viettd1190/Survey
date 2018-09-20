@@ -172,8 +172,10 @@
     <Compile Include="Helpers\Extensions\HtmlExtensions.cs" />
     <Compile Include="Helpers\Html\PagingExtensions.cs" />
     <Compile Include="Helpers\Mapping\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\FaqModel.cs" />
     <Compile Include="Models\FormatResult.cs" />
+    <Compile Include="Models\UpdateUserModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -1667,6 +1669,8 @@
     <Content Include="Areas\Admin\Views\Shared\Notfound.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_DialogLayout.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Admin\admin.js" />

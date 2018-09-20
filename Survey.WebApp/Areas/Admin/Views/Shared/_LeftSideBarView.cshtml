@@ -37,6 +37,13 @@
                     <span>Tổng quan</span>
                 </a>
             </li>
+            <li id="left-sidebar-menu-setup">
+                <a href="@Url.Action("Index",
+                                     "Home")">
+                    <i class="fa fa-cog"></i>
+                    <span>Cài đặt</span>
+                </a>
+            </li>
             <li class="header">QUẢN LÝ</li>
             <li id="left-sidebar-menu-faq">
                 <a href="@Url.Action("Index",
@@ -55,83 +62,6 @@
                     <span>Người dùng</span>
                 </a>
             </li>
-            <li class="header">ĐƠN HÀNG & SẢN PHẨM</li>
-            <li id="left-sidebar-menu-productcategory">
-                <a href="@Url.Action("Index",
-                                     "ProductCategory")">
-                    <i class="fa fa-list"></i>
-                    <span>Danh mục sản phẩm</span>
-                </a>
-            </li>
-            <li id="left-sidebar-menu-product">
-                <a href="@Url.Action("Index",
-                                     "Product")">
-                    <i class="fa fa-product-hunt"></i>
-                    <span>Sản phẩm</span>
-                </a>
-            </li>
-            <li id="left-sidebar-menu-order">
-                <a href="@Url.Action("Index",
-                                     "Order")">
-                    <i class="fa fa-book"></i>
-                    <span>Đơn hàng</span>
-                </a>
-            </li>
-            <li class="header">KHÁCH HÀNG</li>
-            <li id="left-sidebar-menu-customer">
-                <a href="@Url.Action("Index",
-                                     "Customer")">
-                    <i class="fa fa-male"></i>
-                    <span>Khách hàng</span>
-                </a>
-            </li>
-            <li id="left-sidebar-menu-feedback">
-                <a href="@Url.Action("Index",
-                                     "Feedback")">
-                    <i class="fa fa-commenting-o"></i>
-                    <span>Góp ý</span>
-                </a>
-            </li>
-            <li class="header">CÀI ĐẶT</li>
-            <li id="left-sidebar-menu-shipfee">
-                <a href="@Url.Action("Index",
-                                     "ShipFee")">
-                    <i class="fa fa-usd"></i>
-                    <span>Tiền ship</span>
-                </a>
-            </li>
-            <li id="left-sidebar-menu-address" class="treeview">
-                <a href="#">
-                    <i class="fa fa-gears"></i> <span>Tỉnh thành</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li id="left-sidebar-menu-address-province">
-                        <a href="@Url.Action("Province",
-                                             "Address")">
-                            <i class="fa fa-circle-o"></i> Tỉnh thành
-                        </a>
-                    </li>
-                    <li id="left-sidebar-menu-address-district">
-                        <a href="@Url.Action("District",
-                                             "Address")">
-                            <i class="fa fa-circle-o"></i> Quận huyện
-                        </a>
-                    </li>
-                    <li id="left-sidebar-menu-address-ward">
-                        <a href="@Url.Action("Ward",
-                                             "Address")">
-                            <i class="fa fa-circle-o"></i> Phường xã
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            @*<li id="left-sidebar-menu-error">
-            <a href="@Url.Action("Index",
-                                 "Error")">
-                <i class="fa fa-exclamation"></i>
-                <span>Danh sách lỗi</span>
-            </a>
-        </li>*@
         </ul>
     </section>
 </aside>

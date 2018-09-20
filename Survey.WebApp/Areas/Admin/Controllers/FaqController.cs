@@ -64,6 +64,7 @@ namespace Survey.WebApp.Areas.Admin.Controllers
                     ViewBag.Completed = false;
                 }
             }
+
             return View(model);
         }
 
@@ -74,6 +75,7 @@ namespace Survey.WebApp.Areas.Admin.Controllers
             {
                 return View(Mapper.Map<Faq, FaqModel>(faq));
             }
+
             return View("NotfoundDialog");
         }
 
@@ -98,13 +100,14 @@ namespace Survey.WebApp.Areas.Admin.Controllers
                     }
                 }
             }
+
             return View(model);
         }
 
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            UpdateResult result = _faqService.Delete(id);
+            var result = _faqService.Delete(id);
             return Json(Server.FormatResultToJson(result));
         }
     }
